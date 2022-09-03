@@ -1,0 +1,106 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#buttonClick').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: "@Url.Action("Demo1")",
+                    success: function (result) {
+                        $('#result1').html(result);
+                    }
+                });
+            });
+
+            $('#buttonSubmit').click(function () {
+               /* var fullName = $('#fullName').val();*/
+                val1 = $('#fullName').val();
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("Demo2")",
+                    data: { fullName: val1 },
+                    success: function (result) {
+                        $('#result2').html(result);
+                    }
+                });
+            });
+
+            $('#buttonDetail').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: "@Url.Action("Demo3")",
+                    success: function (result) {
+                        var s = 'Id: ' + result.id;
+                        s += '<br>Name: ' + result.name;
+                        s += '<br>Price: ' + result.price;
+                        $('#result3').html(s);
+                    }
+                });
+            });
+
+            $('#buttonDetails').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: "@Url.Action("Demo4")",
+                    success: function (result) {
+                        var s = '';
+                        for (var i = 0; i < result.length; i++) {
+                            s += '<br>Id: ' + result[i].id;
+                            s += '<br>Name: ' + result[i].name;
+                            s += '<br>Price: ' + result[i].price;
+                            s += '<br>------------------';
+                        }
+                        $('#result4').html(s);
+                    }
+                });
+            });
+
+        });
+    </script>
+</head>
+<body style="background-color:lightgray;">
+    <div class="text-center">
+    @*<div class="form-group">*@
+        <h1 class="display-12">Product Records Of Medicine</h1>
+       </div>
+    <fieldset>
+        <legend>Demo 1</legend>
+        <input type="button" value="Click" id="buttonClick" />
+        <br />
+        <span id="result1"></span>
+    </fieldset>
+     @*</div>*@
+    <fieldset>
+        <legend>Demo 2</legend>
+        Full Name <input type="text" id="fullName" />
+        <input type="button" value="Submit" id="buttonSubmit" />
+        <br />
+        <span id="result2"></span>
+    </fieldset>
+
+    <fieldset>
+        <legend>Demo 3</legend>
+        <input type="button" value="Detail" id="buttonDetail" />
+        <br />
+        <span id="result3"></span>
+    </fieldset>
+
+    <fieldset>
+        <legend>Demo 4</legend>
+        <input type="button" value="Details" id="buttonDetails" />
+        <br />
+        <span id="result4"></span>
+    </fieldset>
+
+</body>
+</html>
